@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Farewell Card Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:wght@400;500&display=swap">
+<style>
+  /* Layout: the card rests on a dark olive table, with the facts for each option beside it. */
+  :root {
+    --table: #20261a;
+    --table-raised: #2c3424;
+    --line: #4d583e;
+    --cream: #f6efdc;
+    --muted: #c7caae;
+    --gold: #dcb96f;
+    --paper: #fbf6ea;
+    --shadow: rgba(8, 10, 5, .55);
+    --display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    --body: "EB Garamond", Georgia, "Times New Roman", serif;
+    --ease: cubic-bezier(.5, .05, .15, 1);
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--table); color: var(--cream); font-family: var(--body); font-size: 1.125rem; line-height: 1.5; }
+  .page {
+    display: grid; gap: 1.5rem; max-width: 1240px; margin-inline: auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 2rem 3rem;
+  }
+  .intro { display: grid; gap: .4rem; }
+  .eyebrow { margin: 0; color: var(--gold); font-size: .85rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
+  h1 { margin: 0; font-family: var(--display); font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 500; line-height: 1.05; text-wrap: balance; }
+  .lede { margin: 0; max-width: 44rem; color: var(--muted); }
+
+  .tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
+  .tab {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: center; gap: .1rem .5rem;
+    min-height: 3.25rem; padding: .5rem; background: none; border: 0; border-bottom: 3px solid transparent;
+    color: var(--muted); font: inherit; cursor: pointer;
+  }
+  .tab b { color: var(--gold); font-family: var(--display); font-size: 1.4rem; font-weight: 600; }
+  .tab:hover { color: var(--cream); }
+  .tab[aria-selected="true"] { border-bottom-color: var(--gold); color: var(--cream); }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  .viewer { display: grid; gap: 1.5rem; align-items: start; }
+  @media (min-width: 920px) { .viewer { grid-template-columns: minmax(0, 1fr) 19rem; gap: 2.5rem; } }
+
+  .stage { position: relative; min-width: 0; height: 560px; overflow-x: clip; }
+  .option { position: absolute; inset: 0; display: grid; place-items: center; perspective: 2200px; }
+
+  .card3d {
+    position: relative; width: var(--leaf-w, 300px); aspect-ratio: 595.5 / 842; max-width: 100%;
+    transform: translateX(0) scale(1) rotateY(0deg); transform-style: preserve-3d;
+    transition: transform 1.15s var(--ease); cursor: pointer;
+  }
+  .card3d.is-open { transform: translateX(calc(50% * var(--open-scale, 1))) scale(var(--open-scale, 1)) rotateY(0deg); }
+  .card3d.is-back { transform: translateX(0) scale(1) rotateY(180deg); }
+  .leaf { position: absolute; inset: 0; transform-style: preserve-3d; }
+  .leaf-cover { transform: translateZ(1px) rotateY(0deg); transform-origin: left center; transition: transform 1.15s var(--ease); }
+  .is-open .leaf-cover { transform: translateZ(1px) rotateY(-180deg); }
+  .face {
+    position: absolute; inset: 0; overflow: hidden; background: var(--paper);
+    -webkit-backface-visibility: hidden; backface-visibility: hidden;
+    box-shadow: 0 14px 30px var(--shadow);
+  }
+  .face-reverse { transform: rotateY(180deg); }
+  .face img { position: absolute; top: -1.0095%; width: 202.855%; height: 102.02%; max-width: none; }
+  .face img.right-half { left: -101.427%; }
+  .face img.left-half { left: -1.427%; }
+  .face.fold-left::after, .face.fold-right::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
+  .face.fold-left::after { background: linear-gradient(90deg, rgba(60, 50, 25, .22), transparent 7%); }
+  .face.fold-right::after { background: linear-gradient(270deg, rgba(60, 50, 25, .22), transparent 7%); }
+
+  .sheet-wrap { width: var(--sheet-w, 300px); max-width: 100%; filter: drop-shadow(0 14px 22px var(--shadow)); }
+  .sheet { position: relative; overflow: hidden; background: var(--paper); }
+  .sheet img { position: absolute; max-width: none; }
+  .sheet-portrait { aspect-ratio: 842 / 1191; }
+  .sheet-portrait img { top: -.7137%; left: -1.0095%; width: 102.02%; height: 101.427%; }
+  .sheet-landscape { aspect-ratio: 1191 / 842; }
+  .sheet-landscape img { top: -1.0095%; left: -.7137%; width: 101.427%; height: 102.02%; }
+  .sheet-wrap.play { animation: lift 1.25s cubic-bezier(.2, .8, .2, 1); }
+  .sheet-landscape.play { animation: open-around 1.5s var(--ease) .35s backwards; }
+  @keyframes lift { from { opacity: .45; transform: translateY(7%) rotateX(16deg) scale(.94); } to { opacity: 1; transform: none; } }
+  @keyframes open-around { from { clip-path: inset(21.5% 26.5%); } to { clip-path: inset(0); } }
+  @keyframes soft-fade { from { opacity: .4; } to { opacity: 1; } }
+
+  .facts { display: grid; gap: 1rem; min-width: 0; }
+  h2 { margin: 0; font-family: var(--display); font-size: 2rem; font-weight: 600; line-height: 1.1; }
+  .summary { margin: 0; color: var(--muted); }
+  dl { display: grid; gap: .7rem; margin: 0; padding-block: .9rem; border-block: 1px solid var(--line); }
+  dl div { display: grid; gap: .05rem; }
+  dt { color: var(--gold); font-size: .78rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; }
+  dd { margin: 0; }
+  .controls { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .btn {
+    min-height: 2.75rem; padding: .35rem 1.1rem; border: 1px solid var(--gold); border-radius: 2px;
+    background: transparent; color: var(--cream); font: inherit; cursor: pointer;
+  }
+  .btn.primary { background: var(--gold); color: var(--table); font-weight: 500; }
+  .btn:hover:not(:disabled) { background: var(--table-raised); color: var(--cream); }
+  .btn:disabled { background: transparent; border-color: var(--line); color: var(--muted); cursor: default; opacity: .75; }
+  .feedback { margin: 0; padding: 1rem 1.2rem; background: var(--table-raised); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card3d, .leaf-cover { transition: none; }
+    .sheet-wrap.play, .sheet-landscape.play { animation: soft-fade .3s ease; }
+  }
+</style>
+
+</head>
+<body>
+<main class="page">
+  <header class="intro">
+    <p class="eyebrow">Retirement card for our priest</p>
+    <h1>Which farewell card should we print?</h1>
+    <p class="lede">Here are three A3 layouts with the same artwork and wording. Text in orange marks details we still need to add.</p>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Card layouts">
+    <button class="tab" id="tab-folded" role="tab" aria-controls="viewer" aria-selected="true" type="button"><b>A</b> Folded</button>
+    <button class="tab" id="tab-portrait" role="tab" aria-controls="viewer" aria-selected="false" tabindex="-1" type="button"><b>B</b> Portrait</button>
+    <button class="tab" id="tab-landscape" role="tab" aria-controls="viewer" aria-selected="false" tabindex="-1" type="button"><b>C</b> Landscape</button>
+  </div>
+
+  <section class="viewer" id="viewer" role="tabpanel" aria-labelledby="tab-folded">
+    <div class="stage" id="stage">
+      <div class="option" id="view-folded">
+        <div class="card3d" id="card">
+          <div class="leaf">
+            <div class="face fold-left"><img class="right-half" src="images/a-inside.jpg" alt="Inside right page of the folded card, an open signing area."></div>
+            <div class="face face-reverse"><img class="left-half" src="images/a-outside.jpg" alt="Back of the folded card with a small olive branch and a dedication."></div>
+          </div>
+          <div class="leaf leaf-cover">
+            <div class="face"><img class="right-half" src="images/a-outside.jpg" alt="Card cover with an olive wreath around the words Thank You, for Father [Name]."></div>
+            <div class="face face-reverse fold-right"><img class="left-half" src="images/a-inside.jpg" alt="Inside left page with a message, a Bible verse, and a signing area."></div>
+          </div>
+        </div>
+      </div>
+      <div class="option" id="view-portrait" hidden>
+        <div class="sheet-wrap" id="portrait-wrap">
+          <div class="sheet sheet-portrait"><img src="images/b-portrait.jpg" alt="Upright A3 card with a thank-you message at the top and a large signing area below."></div>
+        </div>
+      </div>
+      <div class="option" id="view-landscape" hidden>
+        <div class="sheet-wrap">
+          <div class="sheet sheet-landscape" id="landscape-sheet"><img src="images/c-landscape.jpg" alt="Wide A3 card with a thank-you message in the centre and signing space all around it."></div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="facts" aria-live="polite">
+      <h2 id="fact-title">Folded card</h2>
+      <p class="summary" id="fact-summary">An A3 sheet folded in half. It opens like a traditional greeting card, with the signatures kept inside.</p>
+      <dl>
+        <div><dt>Finished size</dt><dd id="fact-size">A4 closed, A3 open</dd></div>
+        <div><dt>Signing space for 80 people</dt><dd id="fact-space">8.4 cm² each</dd></div>
+        <div><dt>Best for</dt><dd id="fact-good">A keepsake he can open and reread</dd></div>
+        <div><dt>Keep in mind</dt><dd id="fact-mind">Signatures are hidden when the card is closed</dd></div>
+      </dl>
+      <div class="controls">
+        <button class="btn primary" id="btn-open" type="button">Open card</button>
+        <button class="btn" id="btn-flip" type="button">See the back</button>
+        <button class="btn primary" id="btn-replay" type="button" hidden>Replay animation</button>
+      </div>
+    </aside>
+  </section>
+
+  <p class="feedback">Tell the person who sent you this link which layout you prefer and what you would change.</p>
+</main>
+
+<script>
+  const OPTIONS = {
+    folded: { title: 'Folded card', summary: 'An A3 sheet folded in half. It opens like a traditional greeting card, with the signatures kept inside.', size: 'A4 closed, A3 open', space: '8.4 cm² each', good: 'A keepsake he can open and reread', mind: 'Signatures are hidden when the card is closed', ratio: 842 / 595.5 },
+    portrait: { title: 'Flat portrait', summary: 'One upright A3 sheet, with the message at the top and signatures below.', size: 'A3 upright', space: '8.1 cm² each', good: 'Framing and hanging on a wall', mind: 'It has the least signing space of the three', ratio: 1191 / 842 },
+    landscape: { title: 'Flat landscape', summary: 'One wide A3 sheet with the message in the centre and signatures all around it.', size: 'A3 wide', space: '8.7 cm² each', good: 'Many people signing around a table at once', mind: 'Signatures may face different directions', ratio: 842 / 1191 }
+  };
+  const ids = Object.keys(OPTIONS);
+  const $ = id => document.getElementById(id);
+  const stage = $('stage'), card = $('card'), openBtn = $('btn-open'), flipBtn = $('btn-flip'), replayBtn = $('btn-replay');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let current = 'folded', isOpen = false, isBack = false, autoOpen = null, lastWidth = 0;
+
+  function layout() {
+    const width = Math.max(stage.clientWidth - 8, 240);
+    const stageTop = stage.getBoundingClientRect().top + window.scrollY;
+    const maxHeight = Math.max(420, Math.min(window.innerHeight - stageTop - 28, 800));
+    const ratio = OPTIONS[current].ratio;
+    const fitted = Math.min(width, maxHeight / ratio);
+    if (current === 'folded') {
+      stage.style.setProperty('--leaf-w', fitted + 'px');
+      stage.style.setProperty('--open-scale', Math.min(width / 2, fitted) / fitted);
+    } else {
+      stage.style.setProperty('--sheet-w', fitted + 'px');
+    }
+    stage.style.height = Math.ceil(fitted * ratio + 28) + 'px';
+  }
+
+  function syncCard() {
+    card.classList.toggle('is-open', isOpen);
+    card.classList.toggle('is-back', isBack);
+    openBtn.textContent = isOpen ? 'Close card' : 'Open card';
+    flipBtn.textContent = isBack ? 'See the front' : 'See the back';
+    openBtn.disabled = isBack;
+    flipBtn.disabled = isOpen;
+  }
+
+  function cancelAutoOpen() { clearTimeout(autoOpen); autoOpen = null; }
+
+  function play() {
+    cancelAutoOpen();
+    if (current === 'folded') {
+      isOpen = false; isBack = false; syncCard();
+      if (!reduced) autoOpen = setTimeout(() => { isOpen = true; syncCard(); }, 1000);
+      return;
+    }
+    const el = current === 'portrait' ? $('portrait-wrap') : $('landscape-sheet');
+    el.classList.remove('play');
+    void el.offsetWidth;
+    el.classList.add('play');
+  }
+
+  function select(id, focusTab) {
+    current = id;
+    ids.forEach(name => {
+      const tab = $('tab-' + name), active = name === id;
+      tab.setAttribute('aria-selected', active);
+      tab.tabIndex = active ? 0 : -1;
+      $('view-' + name).hidden = !active;
+    });
+    $('viewer').setAttribute('aria-labelledby', 'tab-' + id);
+    if (focusTab) $('tab-' + id).focus();
+    const o = OPTIONS[id];
+    $('fact-title').textContent = o.title;
+    $('fact-summary').textContent = o.summary;
+    $('fact-size').textContent = o.size;
+    $('fact-space').textContent = o.space;
+    $('fact-good').textContent = o.good;
+    $('fact-mind').textContent = o.mind;
+    openBtn.hidden = flipBtn.hidden = id !== 'folded';
+    replayBtn.hidden = id === 'folded';
+    layout();
+    play();
+  }
+
+  ids.forEach((name, i) => {
+    const tab = $('tab-' + name);
+    tab.addEventListener('click', () => { location.hash = name; if (current !== name) select(name); });
+    tab.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      const next = ids[(i + (e.key === 'ArrowRight' ? 1 : ids.length - 1)) % ids.length];
+      location.hash = next;
+      select(next, true);
+    });
+  });
+  card.addEventListener('click', () => {
+    cancelAutoOpen();
+    if (isBack) isBack = false; else isOpen = !isOpen;
+    syncCard();
+  });
+  openBtn.addEventListener('click', () => { cancelAutoOpen(); isOpen = !isOpen; syncCard(); });
+  flipBtn.addEventListener('click', () => { cancelAutoOpen(); isBack = !isBack; syncCard(); });
+  replayBtn.addEventListener('click', play);
+  window.addEventListener('hashchange', () => {
+    const id = location.hash.slice(1);
+    if (OPTIONS[id] && id !== current) select(id);
+  });
+  new ResizeObserver(() => {
+    if (stage.clientWidth !== lastWidth) { lastWidth = stage.clientWidth; layout(); }
+  }).observe(stage);
+  window.addEventListener('resize', layout);
+
+  const start = location.hash.slice(1);
+  select(OPTIONS[start] ? start : 'folded');
+</script>
+</body>
+</html>
