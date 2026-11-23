@@ -73,6 +73,8 @@
   .leaf { position: absolute; inset: 0; transform-style: preserve-3d; }
   .leaf-cover { transform: translateZ(1px) rotateY(0deg); transform-origin: left center; transition: transform 1.15s var(--ease); }
   .is-open .leaf-cover { transform: translateZ(1px) rotateY(-180deg); }
+  .card3d.close-first { transition-delay: .55s; }
+  .card3d.flip-first .leaf-cover { transition-delay: .55s; }
   .face {
     position: absolute; inset: 0; overflow: hidden; background: var(--paper);
     -webkit-backface-visibility: hidden; backface-visibility: hidden;
@@ -116,8 +118,7 @@
     background: transparent; color: var(--cream); font: inherit; cursor: pointer;
   }
   .btn.primary { background: var(--gold); color: var(--table); font-weight: 500; }
-  .btn:hover:not(:disabled) { background: var(--table-raised); color: var(--cream); }
-  .btn:disabled { background: transparent; border-color: var(--line); color: var(--muted); cursor: default; opacity: .75; }
+  .btn:hover { background: var(--table-raised); color: var(--cream); }
   .feedback { margin: 0; padding: 1rem 1.2rem; background: var(--table-raised); }
 
   @media (prefers-reduced-motion: reduce) {
@@ -135,7 +136,7 @@
       <button class="btn" id="btn-lang" type="button" lang="zh-Hant" aria-label="切換至繁體中文">中文</button>
     </div>
     <h1 data-t="heading">Which farewell card should we print?</h1>
-    <p class="lede" data-t="lede">Here are three A3 layouts with the same artwork and Chinese wording. Text in orange marks details we still need to add.</p>
+    <p class="lede" data-t="lede">Here are three A3 layouts with the same artwork and Chinese wording.</p>
   </header>
 
   <div class="tabs" id="tabs" role="tablist" aria-label="Card layouts">
@@ -188,7 +189,6 @@
       <div class="controls">
         <button class="btn primary" id="btn-open" type="button">Open card</button>
         <button class="btn" id="btn-flip" type="button">See the back</button>
-        <button class="btn primary" id="btn-replay" type="button" hidden>Replay animation</button>
       </div>
     </aside>
   </section>
@@ -206,10 +206,10 @@
     en: {
       pageTitle: 'Farewell Card Review', htmlLang: 'en',
       eyebrow: 'Retirement card for our pastor', heading: 'Which farewell card should we print?',
-      lede: 'Here are three A3 layouts with the same artwork and Chinese wording. Text in orange marks details we still need to add.',
+      lede: 'Here are three A3 layouts with the same artwork and Chinese wording.',
       tabsLabel: 'Card layouts', tabFolded: 'Folded', tabPortrait: 'Portrait', tabLandscape: 'Landscape',
       labelSize: 'Finished size', labelSpace: 'Signing space for 80 people', labelGood: 'Best for', labelMind: 'Keep in mind',
-      open: 'Open card', close: 'Close card', back: 'See the back', front: 'See the front', replay: 'Replay animation',
+      open: 'Open card', close: 'Close card', back: 'See the back', front: 'See the front',
       feedback: 'Tell the person who sent you this link which layout you prefer and what you would change.',
       switchText: '中文', switchLabel: '切換至繁體中文', switchLang: 'zh-Hant',
       altInsideRight: 'Inside right page of the folded card, an open signing area.',
@@ -229,10 +229,10 @@
     zh: {
       pageTitle: '榮休感謝卡審閱', htmlLang: 'zh-Hant',
       eyebrow: '致牧師的榮休感謝卡', heading: '我們該印製哪一款榮休感謝卡？',
-      lede: '這裡有三款 A3 版面，插圖和文字內容相同。橙色文字是我們稍後需要補上的資料。',
+      lede: '這裡有三款 A3 版面，插圖和文字內容相同。',
       tabsLabel: '卡片版面', tabFolded: '摺疊', tabPortrait: '直式', tabLandscape: '橫式',
       labelSize: '完成尺寸', labelSpace: '80 人的簽名空間', labelGood: '最適合', labelMind: '請留意',
-      open: '打開卡片', close: '合上卡片', back: '查看背面', front: '查看正面', replay: '重播動畫',
+      open: '打開卡片', close: '合上卡片', back: '查看背面', front: '查看正面',
       feedback: '請告訴傳送此連結給您的人，您喜歡哪一款版面，以及有甚麼想修改的地方。',
       switchText: 'English', switchLabel: 'Switch to English', switchLang: 'en',
       altInsideRight: '摺疊卡內頁右側，為空白簽名區。',
@@ -252,7 +252,7 @@
   };
   const ids = Object.keys(OPTIONS);
   const $ = id => document.getElementById(id);
-  const stage = $('stage'), card = $('card'), openBtn = $('btn-open'), flipBtn = $('btn-flip'), replayBtn = $('btn-replay'), langBtn = $('btn-lang');
+  const stage = $('stage'), card = $('card'), openBtn = $('btn-open'), flipBtn = $('btn-flip'), langBtn = $('btn-lang');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let current = 'folded', isOpen = false, isBack = false, autoOpen = null, lastWidth = 0, lang = 'en';
   try { if (localStorage.getItem('card-lang') === 'zh') lang = 'zh'; } catch (e) {}
@@ -277,7 +277,6 @@
     langBtn.textContent = t.switchText;
     langBtn.lang = t.switchLang;
     langBtn.setAttribute('aria-label', t.switchLabel);
-    replayBtn.textContent = t.replay;
     renderFacts();
     syncCard();
   }
@@ -303,17 +302,24 @@
     ['portrait', 'landscape'].forEach(name => $('flip-' + name).classList.toggle('is-back', current === name && isBack));
     openBtn.textContent = isOpen ? TEXT[lang].close : TEXT[lang].open;
     flipBtn.textContent = isBack ? TEXT[lang].front : TEXT[lang].back;
-    openBtn.disabled = isBack;
-    flipBtn.disabled = isOpen;
+  }
+
+  function moveTo(next) {
+    const from = isOpen ? 'open' : isBack ? 'back' : 'front';
+    card.classList.toggle('close-first', from === 'open' && next === 'back');
+    card.classList.toggle('flip-first', from === 'back' && next === 'open');
+    isOpen = next === 'open';
+    isBack = next === 'back';
+    syncCard();
   }
 
   function cancelAutoOpen() { clearTimeout(autoOpen); autoOpen = null; }
 
   function play() {
     cancelAutoOpen();
-    isOpen = false; isBack = false; syncCard();
+    moveTo('front');
     if (current === 'folded') {
-      if (!reduced) autoOpen = setTimeout(() => { isOpen = true; syncCard(); }, 1000);
+      if (!reduced) autoOpen = setTimeout(() => moveTo('open'), 1000);
       return;
     }
     const el = current === 'portrait' ? $('portrait-wrap') : $('landscape-sheet');
@@ -334,7 +340,6 @@
     if (focusTab) $('tab-' + id).focus();
     renderFacts();
     openBtn.hidden = id !== 'folded';
-    replayBtn.hidden = id === 'folded';
     layout();
     play();
   }
@@ -352,13 +357,11 @@
   });
   card.addEventListener('click', () => {
     cancelAutoOpen();
-    if (isBack) isBack = false; else isOpen = !isOpen;
-    syncCard();
+    moveTo(isOpen || isBack ? 'front' : 'open');
   });
-  openBtn.addEventListener('click', () => { cancelAutoOpen(); isOpen = !isOpen; syncCard(); });
-  flipBtn.addEventListener('click', () => { cancelAutoOpen(); isBack = !isBack; syncCard(); });
-  ['portrait', 'landscape'].forEach(name => $('flip-' + name).addEventListener('click', () => { isBack = !isBack; syncCard(); }));
-  replayBtn.addEventListener('click', play);
+  openBtn.addEventListener('click', () => { cancelAutoOpen(); moveTo(isOpen ? 'front' : 'open'); });
+  flipBtn.addEventListener('click', () => { cancelAutoOpen(); moveTo(isBack ? 'front' : 'back'); });
+  ['portrait', 'landscape'].forEach(name => $('flip-' + name).addEventListener('click', () => moveTo(isBack ? 'front' : 'back')));
   langBtn.addEventListener('click', () => {
     lang = lang === 'en' ? 'zh' : 'en';
     try { localStorage.setItem('card-lang', lang); } catch (e) {}
