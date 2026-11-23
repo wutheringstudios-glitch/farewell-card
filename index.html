@@ -8,7 +8,7 @@
 <title>Farewell Card Review</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:wght@400;500&family=Noto+Serif+TC:wght@400;500;600&display=swap">
 <style>
   /* Layout: the card rests on a dark olive table, with the facts for each option beside it. */
   :root {
@@ -37,6 +37,14 @@
   .eyebrow { margin: 0; color: var(--gold); font-size: .85rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
   h1 { margin: 0; font-family: var(--display); font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 500; line-height: 1.05; text-wrap: balance; }
   .lede { margin: 0; max-width: 44rem; color: var(--muted); }
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  .topbar .eyebrow { min-width: 0; }
+  #btn-lang { flex: none; font-family: "Noto Serif TC", "Songti TC", PMingLiU, Georgia, serif; font-size: 1rem; }
+  html[lang="zh-Hant"] { --display: "Noto Serif TC", "Songti TC", PMingLiU, serif; --body: "Noto Serif TC", "Songti TC", PMingLiU, serif; }
+  html[lang="zh-Hant"] body { font-size: 1.0625rem; line-height: 1.7; }
+  html[lang="zh-Hant"] h1 { font-size: clamp(1.4rem, 3.4vw, 2.6rem); line-height: 1.3; }
+  html[lang="zh-Hant"] h2 { font-size: 1.7rem; line-height: 1.3; }
+  html[lang="zh-Hant"] .eyebrow, html[lang="zh-Hant"] dt { letter-spacing: .06em; text-transform: none; }
 
   .tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
   .tab {
@@ -118,15 +126,18 @@
 <body>
 <main class="page">
   <header class="intro">
-    <p class="eyebrow">Retirement card for our priest</p>
-    <h1>Which farewell card should we print?</h1>
-    <p class="lede">Here are three A3 layouts with the same artwork and wording. Text in orange marks details we still need to add.</p>
+    <div class="topbar">
+      <p class="eyebrow" data-t="eyebrow">Retirement card for our priest</p>
+      <button class="btn" id="btn-lang" type="button" lang="zh-Hant" aria-label="切換至繁體中文">中文</button>
+    </div>
+    <h1 data-t="heading">Which farewell card should we print?</h1>
+    <p class="lede" data-t="lede">Here are three A3 layouts with the same artwork and wording. Text in orange marks details we still need to add.</p>
   </header>
 
-  <div class="tabs" role="tablist" aria-label="Card layouts">
-    <button class="tab" id="tab-folded" role="tab" aria-controls="viewer" aria-selected="true" type="button"><b>A</b> Folded</button>
-    <button class="tab" id="tab-portrait" role="tab" aria-controls="viewer" aria-selected="false" tabindex="-1" type="button"><b>B</b> Portrait</button>
-    <button class="tab" id="tab-landscape" role="tab" aria-controls="viewer" aria-selected="false" tabindex="-1" type="button"><b>C</b> Landscape</button>
+  <div class="tabs" id="tabs" role="tablist" aria-label="Card layouts">
+    <button class="tab" id="tab-folded" role="tab" aria-controls="viewer" aria-selected="true" type="button"><b>A</b> <span data-t="tabFolded">Folded</span></button>
+    <button class="tab" id="tab-portrait" role="tab" aria-controls="viewer" aria-selected="false" tabindex="-1" type="button"><b>B</b> <span data-t="tabPortrait">Portrait</span></button>
+    <button class="tab" id="tab-landscape" role="tab" aria-controls="viewer" aria-selected="false" tabindex="-1" type="button"><b>C</b> <span data-t="tabLandscape">Landscape</span></button>
   </div>
 
   <section class="viewer" id="viewer" role="tabpanel" aria-labelledby="tab-folded">
@@ -134,23 +145,23 @@
       <div class="option" id="view-folded">
         <div class="card3d" id="card">
           <div class="leaf">
-            <div class="face fold-left"><img class="right-half" src="images/a-inside.jpg" alt="Inside right page of the folded card, an open signing area."></div>
-            <div class="face face-reverse"><img class="left-half" src="images/a-outside.jpg" alt="Back of the folded card with a small olive branch and a dedication."></div>
+            <div class="face fold-left"><img class="right-half" src="images/a-inside.jpg" data-file="a-inside.jpg" data-alt="altInsideRight" alt="Inside right page of the folded card, an open signing area."></div>
+            <div class="face face-reverse"><img class="left-half" src="images/a-outside.jpg" data-file="a-outside.jpg" data-alt="altBack" alt="Back of the folded card with a small olive branch and a dedication."></div>
           </div>
           <div class="leaf leaf-cover">
-            <div class="face"><img class="right-half" src="images/a-outside.jpg" alt="Card cover with an olive wreath around the words Thank You, for Father [Name]."></div>
-            <div class="face face-reverse fold-right"><img class="left-half" src="images/a-inside.jpg" alt="Inside left page with a message, a Bible verse, and a signing area."></div>
+            <div class="face"><img class="right-half" src="images/a-outside.jpg" data-file="a-outside.jpg" data-alt="altCover" alt="Card cover with an olive wreath around the words Thank You, for Father [Name]."></div>
+            <div class="face face-reverse fold-right"><img class="left-half" src="images/a-inside.jpg" data-file="a-inside.jpg" data-alt="altInsideLeft" alt="Inside left page with a message, a Bible verse, and a signing area."></div>
           </div>
         </div>
       </div>
       <div class="option" id="view-portrait" hidden>
         <div class="sheet-wrap" id="portrait-wrap">
-          <div class="sheet sheet-portrait"><img src="images/b-portrait.jpg" alt="Upright A3 card with a thank-you message at the top and a large signing area below."></div>
+          <div class="sheet sheet-portrait"><img src="images/b-portrait.jpg" data-file="b-portrait.jpg" data-alt="altPortrait" alt="Upright A3 card with a thank-you message at the top and a large signing area below."></div>
         </div>
       </div>
       <div class="option" id="view-landscape" hidden>
         <div class="sheet-wrap">
-          <div class="sheet sheet-landscape" id="landscape-sheet"><img src="images/c-landscape.jpg" alt="Wide A3 card with a thank-you message in the centre and signing space all around it."></div>
+          <div class="sheet sheet-landscape" id="landscape-sheet"><img src="images/c-landscape.jpg" data-file="c-landscape.jpg" data-alt="altLandscape" alt="Wide A3 card with a thank-you message in the centre and signing space all around it."></div>
         </div>
       </div>
     </div>
@@ -159,10 +170,10 @@
       <h2 id="fact-title">Folded card</h2>
       <p class="summary" id="fact-summary">An A3 sheet folded in half. It opens like a traditional greeting card, with the signatures kept inside.</p>
       <dl>
-        <div><dt>Finished size</dt><dd id="fact-size">A4 closed, A3 open</dd></div>
-        <div><dt>Signing space for 80 people</dt><dd id="fact-space">8.4 cm² each</dd></div>
-        <div><dt>Best for</dt><dd id="fact-good">A keepsake he can open and reread</dd></div>
-        <div><dt>Keep in mind</dt><dd id="fact-mind">Signatures are hidden when the card is closed</dd></div>
+        <div><dt data-t="labelSize">Finished size</dt><dd id="fact-size">A4 closed, A3 open</dd></div>
+        <div><dt data-t="labelSpace">Signing space for 80 people</dt><dd id="fact-space">8.4 cm² each</dd></div>
+        <div><dt data-t="labelGood">Best for</dt><dd id="fact-good">A keepsake he can open and reread</dd></div>
+        <div><dt data-t="labelMind">Keep in mind</dt><dd id="fact-mind">Signatures are hidden when the card is closed</dd></div>
       </dl>
       <div class="controls">
         <button class="btn primary" id="btn-open" type="button">Open card</button>
@@ -172,20 +183,90 @@
     </aside>
   </section>
 
-  <p class="feedback">Tell the person who sent you this link which layout you prefer and what you would change.</p>
+  <p class="feedback" data-t="feedback">Tell the person who sent you this link which layout you prefer and what you would change.</p>
 </main>
 
 <script>
   const OPTIONS = {
-    folded: { title: 'Folded card', summary: 'An A3 sheet folded in half. It opens like a traditional greeting card, with the signatures kept inside.', size: 'A4 closed, A3 open', space: '8.4 cm² each', good: 'A keepsake he can open and reread', mind: 'Signatures are hidden when the card is closed', ratio: 842 / 595.5 },
-    portrait: { title: 'Flat portrait', summary: 'One upright A3 sheet, with the message at the top and signatures below.', size: 'A3 upright', space: '8.1 cm² each', good: 'Framing and hanging on a wall', mind: 'It has the least signing space of the three', ratio: 1191 / 842 },
-    landscape: { title: 'Flat landscape', summary: 'One wide A3 sheet with the message in the centre and signatures all around it.', size: 'A3 wide', space: '8.7 cm² each', good: 'Many people signing around a table at once', mind: 'Signatures may face different directions', ratio: 842 / 1191 }
+    folded: { ratio: 842 / 595.5 },
+    portrait: { ratio: 1191 / 842 },
+    landscape: { ratio: 842 / 1191 }
+  };
+  const TEXT = {
+    en: {
+      pageTitle: 'Farewell Card Review', htmlLang: 'en', imageDir: 'images/',
+      eyebrow: 'Retirement card for our priest', heading: 'Which farewell card should we print?',
+      lede: 'Here are three A3 layouts with the same artwork and wording. Text in orange marks details we still need to add.',
+      tabsLabel: 'Card layouts', tabFolded: 'Folded', tabPortrait: 'Portrait', tabLandscape: 'Landscape',
+      labelSize: 'Finished size', labelSpace: 'Signing space for 80 people', labelGood: 'Best for', labelMind: 'Keep in mind',
+      open: 'Open card', close: 'Close card', back: 'See the back', front: 'See the front', replay: 'Replay animation',
+      feedback: 'Tell the person who sent you this link which layout you prefer and what you would change.',
+      switchText: '中文', switchLabel: '切換至繁體中文', switchLang: 'zh-Hant',
+      altInsideRight: 'Inside right page of the folded card, an open signing area.',
+      altBack: 'Back of the folded card with a small olive branch and a dedication.',
+      altCover: 'Card cover with an olive wreath around the words Thank You, for Father [Name].',
+      altInsideLeft: 'Inside left page with a message, a Bible verse, and a signing area.',
+      altPortrait: 'Upright A3 card with a thank-you message at the top and a large signing area below.',
+      altLandscape: 'Wide A3 card with a thank-you message in the centre and signing space all around it.',
+      options: {
+        folded: { title: 'Folded card', summary: 'An A3 sheet folded in half. It opens like a traditional greeting card, with the signatures kept inside.', size: 'A4 closed, A3 open', space: '8.4 cm² each', good: 'A keepsake he can open and reread', mind: 'Signatures are hidden when the card is closed' },
+        portrait: { title: 'Flat portrait', summary: 'One upright A3 sheet, with the message at the top and signatures below.', size: 'A3 upright', space: '8.1 cm² each', good: 'Framing and hanging on a wall', mind: 'It has the least signing space of the three' },
+        landscape: { title: 'Flat landscape', summary: 'One wide A3 sheet with the message in the centre and signatures all around it.', size: 'A3 wide', space: '8.7 cm² each', good: 'Many people signing around a table at once', mind: 'Signatures may face different directions' }
+      }
+    },
+    zh: {
+      pageTitle: '榮休感謝卡審閱', htmlLang: 'zh-Hant', imageDir: 'images/zh/',
+      eyebrow: '致神父的榮休感謝卡', heading: '我們該印製哪一款榮休感謝卡？',
+      lede: '這裡有三款 A3 版面，插圖和文字內容相同。橙色文字是我們稍後需要補上的資料。',
+      tabsLabel: '卡片版面', tabFolded: '摺疊', tabPortrait: '直式', tabLandscape: '橫式',
+      labelSize: '完成尺寸', labelSpace: '80 人的簽名空間', labelGood: '最適合', labelMind: '請留意',
+      open: '打開卡片', close: '合上卡片', back: '查看背面', front: '查看正面', replay: '重播動畫',
+      feedback: '請告訴傳送此連結給您的人，您喜歡哪一款版面，以及有甚麼想修改的地方。',
+      switchText: 'English', switchLabel: 'Switch to English', switchLang: 'en',
+      altInsideRight: '摺疊卡內頁右側，為空白簽名區。',
+      altBack: '摺疊卡背面，有一小段橄欖枝和獻辭。',
+      altCover: '卡片封面，橄欖花環圍繞著「感謝您」三字，下方是神父的稱呼。',
+      altInsideLeft: '摺疊卡內頁左側，有感謝語、聖經金句和簽名區。',
+      altPortrait: '直式 A3 卡片，上方是感謝語，下方是大片簽名區。',
+      altLandscape: '橫式 A3 卡片，中央是感謝語，四周是簽名空間。',
+      options: {
+        folded: { title: '摺疊卡', summary: '將 A3 紙對摺，打開方式就像傳統賀卡，簽名都保存在卡內。', size: '合上時 A4，打開時 A3', space: '每人 8.4 平方厘米', good: '讓神父隨時打開重溫的紀念品', mind: '卡片合上時看不到簽名' },
+        portrait: { title: '直式平面', summary: '一張直放的 A3 紙，感謝語在上方，簽名在下方。', size: 'A3 直式', space: '每人 8.1 平方厘米', good: '裝裱後掛在牆上', mind: '三款之中簽名空間最少' },
+        landscape: { title: '橫式平面', summary: '一張橫放的 A3 紙，感謝語在中央，簽名環繞四周。', size: 'A3 橫式', space: '每人 8.7 平方厘米', good: '多人同時圍著桌子簽名', mind: '簽名方向可能各不相同' }
+      }
+    }
   };
   const ids = Object.keys(OPTIONS);
   const $ = id => document.getElementById(id);
-  const stage = $('stage'), card = $('card'), openBtn = $('btn-open'), flipBtn = $('btn-flip'), replayBtn = $('btn-replay');
+  const stage = $('stage'), card = $('card'), openBtn = $('btn-open'), flipBtn = $('btn-flip'), replayBtn = $('btn-replay'), langBtn = $('btn-lang');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let current = 'folded', isOpen = false, isBack = false, autoOpen = null, lastWidth = 0;
+  let current = 'folded', isOpen = false, isBack = false, autoOpen = null, lastWidth = 0, lang = 'en';
+  try { if (localStorage.getItem('card-lang') === 'zh') lang = 'zh'; } catch (e) {}
+
+  function renderFacts() {
+    const o = TEXT[lang].options[current];
+    $('fact-title').textContent = o.title;
+    $('fact-summary').textContent = o.summary;
+    $('fact-size').textContent = o.size;
+    $('fact-space').textContent = o.space;
+    $('fact-good').textContent = o.good;
+    $('fact-mind').textContent = o.mind;
+  }
+
+  function applyLanguage() {
+    const t = TEXT[lang];
+    document.documentElement.lang = t.htmlLang;
+    document.title = t.pageTitle;
+    document.querySelectorAll('[data-t]').forEach(el => { el.textContent = t[el.dataset.t]; });
+    document.querySelectorAll('img[data-file]').forEach(img => { img.src = t.imageDir + img.dataset.file; img.alt = t[img.dataset.alt]; });
+    $('tabs').setAttribute('aria-label', t.tabsLabel);
+    langBtn.textContent = t.switchText;
+    langBtn.lang = t.switchLang;
+    langBtn.setAttribute('aria-label', t.switchLabel);
+    replayBtn.textContent = t.replay;
+    renderFacts();
+    syncCard();
+  }
 
   function layout() {
     const width = Math.max(stage.clientWidth - 8, 240);
@@ -205,8 +286,8 @@
   function syncCard() {
     card.classList.toggle('is-open', isOpen);
     card.classList.toggle('is-back', isBack);
-    openBtn.textContent = isOpen ? 'Close card' : 'Open card';
-    flipBtn.textContent = isBack ? 'See the front' : 'See the back';
+    openBtn.textContent = isOpen ? TEXT[lang].close : TEXT[lang].open;
+    flipBtn.textContent = isBack ? TEXT[lang].front : TEXT[lang].back;
     openBtn.disabled = isBack;
     flipBtn.disabled = isOpen;
   }
@@ -236,13 +317,7 @@
     });
     $('viewer').setAttribute('aria-labelledby', 'tab-' + id);
     if (focusTab) $('tab-' + id).focus();
-    const o = OPTIONS[id];
-    $('fact-title').textContent = o.title;
-    $('fact-summary').textContent = o.summary;
-    $('fact-size').textContent = o.size;
-    $('fact-space').textContent = o.space;
-    $('fact-good').textContent = o.good;
-    $('fact-mind').textContent = o.mind;
+    renderFacts();
     openBtn.hidden = flipBtn.hidden = id !== 'folded';
     replayBtn.hidden = id === 'folded';
     layout();
@@ -268,6 +343,12 @@
   openBtn.addEventListener('click', () => { cancelAutoOpen(); isOpen = !isOpen; syncCard(); });
   flipBtn.addEventListener('click', () => { cancelAutoOpen(); isBack = !isBack; syncCard(); });
   replayBtn.addEventListener('click', play);
+  langBtn.addEventListener('click', () => {
+    lang = lang === 'en' ? 'zh' : 'en';
+    try { localStorage.setItem('card-lang', lang); } catch (e) {}
+    applyLanguage();
+    layout();
+  });
   window.addEventListener('hashchange', () => {
     const id = location.hash.slice(1);
     if (OPTIONS[id] && id !== current) select(id);
@@ -277,6 +358,7 @@
   }).observe(stage);
   window.addEventListener('resize', layout);
 
+  applyLanguage();
   const start = location.hash.slice(1);
   select(OPTIONS[start] ? start : 'folded');
 </script>
