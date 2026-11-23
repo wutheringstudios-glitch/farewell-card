@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Farewell Card Review</title>
+<title>榮休感謝卡審閱</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=EB+Garamond:wght@400;500&family=Noto+Serif+TC:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600&display=swap">
 <style>
   /* Layout: the card rests on a dark olive table, with the facts for each option beside it. */
   :root {
@@ -20,13 +20,13 @@
     --gold: #dcb96f;
     --paper: #fbf6ea;
     --shadow: rgba(8, 10, 5, .55);
-    --display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-    --body: "EB Garamond", Georgia, "Times New Roman", serif;
+    --display: "Noto Serif TC", "Songti TC", PMingLiU, serif;
+    --body: "Noto Serif TC", "Songti TC", PMingLiU, serif;
     --ease: cubic-bezier(.5, .05, .15, 1);
     color-scheme: dark;
   }
   * { box-sizing: border-box; }
-  body { background: var(--table); color: var(--cream); font-family: var(--body); font-size: 1.125rem; line-height: 1.5; }
+  body { background: var(--table); color: var(--cream); font-family: var(--body); font-size: 1.0625rem; line-height: 1.7; }
   .page {
     display: grid; gap: 1.5rem; max-width: 1240px; margin-inline: auto;
     padding-left: max(16px, env(safe-area-inset-left, 0px));
@@ -34,17 +34,9 @@
     padding-block: 2rem 3rem;
   }
   .intro { display: grid; gap: .4rem; }
-  .eyebrow { margin: 0; color: var(--gold); font-size: .85rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; }
-  h1 { margin: 0; font-family: var(--display); font-size: clamp(2.2rem, 4vw, 3rem); font-weight: 500; line-height: 1.05; text-wrap: balance; }
+  .eyebrow { margin: 0; color: var(--gold); font-size: .85rem; font-weight: 500; letter-spacing: .06em; }
+  h1 { margin: 0; font-family: var(--display); font-size: clamp(1.4rem, 3.4vw, 2.6rem); font-weight: 500; line-height: 1.3; text-wrap: balance; }
   .lede { margin: 0; max-width: 44rem; color: var(--muted); }
-  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-  .topbar .eyebrow { min-width: 0; }
-  #btn-lang { flex: none; font-family: "Noto Serif TC", "Songti TC", PMingLiU, Georgia, serif; font-size: 1rem; }
-  html[lang="zh-Hant"] { --display: "Noto Serif TC", "Songti TC", PMingLiU, serif; --body: "Noto Serif TC", "Songti TC", PMingLiU, serif; }
-  html[lang="zh-Hant"] body { font-size: 1.0625rem; line-height: 1.7; }
-  html[lang="zh-Hant"] h1 { font-size: clamp(1.4rem, 3.4vw, 2.6rem); line-height: 1.3; }
-  html[lang="zh-Hant"] h2 { font-size: 1.7rem; line-height: 1.3; }
-  html[lang="zh-Hant"] .eyebrow, html[lang="zh-Hant"] dt { letter-spacing: .06em; text-transform: none; }
 
   .tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
   .tab {
@@ -106,11 +98,11 @@
   @keyframes soft-fade { from { opacity: .4; } to { opacity: 1; } }
 
   .facts { display: grid; gap: 1rem; min-width: 0; }
-  h2 { margin: 0; font-family: var(--display); font-size: 2rem; font-weight: 600; line-height: 1.1; }
+  h2 { margin: 0; font-family: var(--display); font-size: 1.7rem; font-weight: 600; line-height: 1.3; }
   .summary { margin: 0; color: var(--muted); }
   dl { display: grid; gap: .7rem; margin: 0; padding-block: .9rem; border-block: 1px solid var(--line); }
   dl div { display: grid; gap: .05rem; }
-  dt { color: var(--gold); font-size: .78rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; }
+  dt { color: var(--gold); font-size: .78rem; font-weight: 500; letter-spacing: .06em; }
   dd { margin: 0; }
   .controls { display: flex; flex-wrap: wrap; gap: .6rem; }
   .btn {
@@ -131,18 +123,15 @@
 <body>
 <main class="page">
   <header class="intro">
-    <div class="topbar">
-      <p class="eyebrow" data-t="eyebrow">Retirement card for our pastor</p>
-      <button class="btn" id="btn-lang" type="button" lang="zh-Hant" aria-label="切換至繁體中文">中文</button>
-    </div>
-    <h1 data-t="heading">Which farewell card should we print?</h1>
-    <p class="lede" data-t="lede">Here are three A3 layouts with the same artwork and Chinese wording.</p>
+    <p class="eyebrow">致牧師的榮休感謝卡</p>
+    <h1>我們該印製哪一款榮休感謝卡？</h1>
+    <p class="lede">這裡有三款 A3 版面，插圖和文字內容相同。</p>
   </header>
 
-  <div class="tabs" id="tabs" role="tablist" aria-label="Card layouts">
-    <button class="tab" id="tab-folded" role="tab" aria-controls="viewer" aria-selected="true" type="button"><b>A</b> <span data-t="tabFolded">Folded</span></button>
-    <button class="tab" id="tab-portrait" role="tab" aria-controls="viewer" aria-selected="false" tabindex="-1" type="button"><b>B</b> <span data-t="tabPortrait">Portrait</span></button>
-    <button class="tab" id="tab-landscape" role="tab" aria-controls="viewer" aria-selected="false" tabindex="-1" type="button"><b>C</b> <span data-t="tabLandscape">Landscape</span></button>
+  <div class="tabs" id="tabs" role="tablist" aria-label="卡片版面">
+    <button class="tab" id="tab-folded" role="tab" aria-controls="viewer" aria-selected="true" type="button"><b>A</b> <span>摺疊</span></button>
+    <button class="tab" id="tab-portrait" role="tab" aria-controls="viewer" aria-selected="false" tabindex="-1" type="button"><b>B</b> <span>直式</span></button>
+    <button class="tab" id="tab-landscape" role="tab" aria-controls="viewer" aria-selected="false" tabindex="-1" type="button"><b>C</b> <span>橫式</span></button>
   </div>
 
   <section class="viewer" id="viewer" role="tabpanel" aria-labelledby="tab-folded">
@@ -150,135 +139,74 @@
       <div class="option" id="view-folded">
         <div class="card3d" id="card">
           <div class="leaf">
-            <div class="face fold-left"><img class="right-half" src="images/zh/a-inside.jpg" data-alt="altInsideRight" alt="Inside right page of the folded card, an open signing area."></div>
-            <div class="face face-reverse"><img class="left-half" src="images/zh/a-outside.jpg" data-alt="altBack" alt="Back of the folded card with a small olive branch and a dedication."></div>
+            <div class="face fold-left"><img class="right-half" src="images/zh/a-inside.jpg" alt="摺疊卡內頁右側，為空白簽名區。"></div>
+            <div class="face face-reverse"><img class="left-half" src="images/zh/a-outside.jpg" alt="摺疊卡背面，有一小段橄欖枝和獻辭。"></div>
           </div>
           <div class="leaf leaf-cover">
-            <div class="face"><img class="right-half" src="images/zh/a-outside.jpg" data-alt="altCover" alt="Card cover with an olive wreath around the Chinese words for Thank You, addressed to the pastor."></div>
-            <div class="face face-reverse fold-right"><img class="left-half" src="images/zh/a-inside.jpg" data-alt="altInsideLeft" alt="Inside left page with a message, a Bible verse, and a signing area."></div>
+            <div class="face"><img class="right-half" src="images/zh/a-outside.jpg" alt="卡片封面，橄欖花環圍繞著「感謝您」三字，下方是牧師的稱呼。"></div>
+            <div class="face face-reverse fold-right"><img class="left-half" src="images/zh/a-inside.jpg" alt="摺疊卡內頁左側，有感謝語、聖經金句和簽名區。"></div>
           </div>
         </div>
       </div>
       <div class="option" id="view-portrait" hidden>
         <div class="sheet-wrap" id="portrait-wrap">
           <div class="flip" id="flip-portrait">
-            <div class="sheet sheet-portrait"><img src="images/zh/b-portrait.jpg" data-alt="altPortrait" alt="Upright A3 card with a thank-you message at the top and a large signing area below."></div>
-            <div class="sheet sheet-portrait sheet-reverse"><img src="images/zh/b-portrait-back.jpg" data-alt="altPortraitBack" alt="Back of the upright card with an olive wreath, a cross, the blessing from Numbers 6:24–26, and a dedication."></div>
+            <div class="sheet sheet-portrait"><img src="images/zh/b-portrait.jpg" alt="直式 A3 卡片，上方是感謝語，下方是大片簽名區。"></div>
+            <div class="sheet sheet-portrait sheet-reverse"><img src="images/zh/b-portrait-back.jpg" alt="直式卡片背面，有橄欖花環、十字架、民數記 6:24–26 的祝福和獻辭。"></div>
           </div>
         </div>
       </div>
       <div class="option" id="view-landscape" hidden>
         <div class="sheet-wrap">
           <div class="flip" id="flip-landscape">
-            <div class="sheet sheet-landscape" id="landscape-sheet"><img src="images/zh/c-landscape.jpg" data-alt="altLandscape" alt="Wide A3 card with a thank-you message in the centre and signing space all around it."></div>
-            <div class="sheet sheet-landscape sheet-reverse"><img src="images/zh/c-landscape-back.jpg" data-alt="altLandscapeBack" alt="Back of the wide card with an olive wreath and cross on the left, and the blessing from Numbers 6:24–26 and a dedication on the right."></div>
+            <div class="sheet sheet-landscape" id="landscape-sheet"><img src="images/zh/c-landscape.jpg" alt="橫式 A3 卡片，中央是感謝語，四周是簽名空間。"></div>
+            <div class="sheet sheet-landscape sheet-reverse"><img src="images/zh/c-landscape-back.jpg" alt="橫式卡片背面，左邊是橄欖花環和十字架，右邊是民數記 6:24–26 的祝福和獻辭。"></div>
           </div>
         </div>
       </div>
     </div>
 
     <aside class="facts" aria-live="polite">
-      <h2 id="fact-title">Folded card</h2>
-      <p class="summary" id="fact-summary">An A3 sheet folded in half. It opens like a traditional greeting card, with the signatures kept inside.</p>
+      <h2 id="fact-title">摺疊卡</h2>
+      <p class="summary" id="fact-summary">將 A3 紙對摺，打開方式就像傳統賀卡，簽名都保存在卡內。</p>
       <dl>
-        <div><dt data-t="labelSize">Finished size</dt><dd id="fact-size">A4 closed, A3 open</dd></div>
-        <div><dt data-t="labelSpace">Signing space for 80 people</dt><dd id="fact-space">8.4 cm² each</dd></div>
-        <div><dt data-t="labelGood">Best for</dt><dd id="fact-good">A keepsake he can open and reread</dd></div>
-        <div><dt data-t="labelMind">Keep in mind</dt><dd id="fact-mind">Signatures are hidden when the card is closed</dd></div>
+        <div><dt>完成尺寸</dt><dd id="fact-size">合上時 A4，打開時 A3</dd></div>
+        <div><dt>80 人的簽名空間</dt><dd id="fact-space">每人 8.4 平方厘米</dd></div>
+        <div><dt>最適合</dt><dd id="fact-good">讓牧師隨時打開重溫的紀念品</dd></div>
+        <div><dt>請留意</dt><dd id="fact-mind">卡片合上時看不到簽名</dd></div>
       </dl>
       <div class="controls">
-        <button class="btn primary" id="btn-open" type="button">Open card</button>
-        <button class="btn" id="btn-flip" type="button">See the back</button>
+        <button class="btn primary" id="btn-open" type="button">打開卡片</button>
+        <button class="btn" id="btn-flip" type="button">查看背面</button>
       </div>
     </aside>
   </section>
 
-  <p class="feedback" data-t="feedback">Tell the person who sent you this link which layout you prefer and what you would change.</p>
+  <p class="feedback">請告訴傳送此連結給您的人，您喜歡哪一款版面，以及有甚麼想修改的地方。</p>
 </main>
 
 <script>
   const OPTIONS = {
-    folded: { ratio: 842 / 595.5 },
-    portrait: { ratio: 1191 / 842 },
-    landscape: { ratio: 842 / 1191 }
+    folded: { ratio: 842 / 595.5, title: '摺疊卡', summary: '將 A3 紙對摺，打開方式就像傳統賀卡，簽名都保存在卡內。', size: '合上時 A4，打開時 A3', space: '每人 8.4 平方厘米', good: '讓牧師隨時打開重溫的紀念品', mind: '卡片合上時看不到簽名' },
+    portrait: { ratio: 1191 / 842, title: '直式平面', summary: '一張直放的 A3 紙，感謝語在上方，簽名在下方，背面印有祝福經文。', size: 'A3 直式，雙面印刷', space: '每人 8.1 平方厘米', good: '裝裱後掛在牆上', mind: '三款之中簽名空間最少' },
+    landscape: { ratio: 842 / 1191, title: '橫式平面', summary: '一張橫放的 A3 紙，感謝語在中央，簽名環繞四周，背面印有祝福經文。', size: 'A3 橫式，雙面印刷', space: '每人 8.7 平方厘米', good: '多人同時圍著桌子簽名', mind: '簽名方向可能各不相同' }
   };
-  const TEXT = {
-    en: {
-      pageTitle: 'Farewell Card Review', htmlLang: 'en',
-      eyebrow: 'Retirement card for our pastor', heading: 'Which farewell card should we print?',
-      lede: 'Here are three A3 layouts with the same artwork and Chinese wording.',
-      tabsLabel: 'Card layouts', tabFolded: 'Folded', tabPortrait: 'Portrait', tabLandscape: 'Landscape',
-      labelSize: 'Finished size', labelSpace: 'Signing space for 80 people', labelGood: 'Best for', labelMind: 'Keep in mind',
-      open: 'Open card', close: 'Close card', back: 'See the back', front: 'See the front',
-      feedback: 'Tell the person who sent you this link which layout you prefer and what you would change.',
-      switchText: '中文', switchLabel: '切換至繁體中文', switchLang: 'zh-Hant',
-      altInsideRight: 'Inside right page of the folded card, an open signing area.',
-      altBack: 'Back of the folded card with a small olive branch and a dedication.',
-      altCover: 'Card cover with an olive wreath around the Chinese words for Thank You, addressed to the pastor.',
-      altInsideLeft: 'Inside left page with a message, a Bible verse, and a signing area.',
-      altPortrait: 'Upright A3 card with a thank-you message at the top and a large signing area below.',
-      altPortraitBack: 'Back of the upright card with an olive wreath, a cross, the blessing from Numbers 6:24–26, and a dedication.',
-      altLandscape: 'Wide A3 card with a thank-you message in the centre and signing space all around it.',
-      altLandscapeBack: 'Back of the wide card with an olive wreath and cross on the left, and the blessing from Numbers 6:24–26 and a dedication on the right.',
-      options: {
-        folded: { title: 'Folded card', summary: 'An A3 sheet folded in half. It opens like a traditional greeting card, with the signatures kept inside.', size: 'A4 closed, A3 open', space: '8.4 cm² each', good: 'A keepsake he can open and reread', mind: 'Signatures are hidden when the card is closed' },
-        portrait: { title: 'Flat portrait', summary: 'One upright A3 sheet, with the message at the top and signatures below. The back carries a blessing.', size: 'A3 upright, printed on both sides', space: '8.1 cm² each', good: 'Framing and hanging on a wall', mind: 'It has the least signing space of the three' },
-        landscape: { title: 'Flat landscape', summary: 'One wide A3 sheet with the message in the centre and signatures all around it. The back carries a blessing.', size: 'A3 wide, printed on both sides', space: '8.7 cm² each', good: 'Many people signing around a table at once', mind: 'Signatures may face different directions' }
-      }
-    },
-    zh: {
-      pageTitle: '榮休感謝卡審閱', htmlLang: 'zh-Hant',
-      eyebrow: '致牧師的榮休感謝卡', heading: '我們該印製哪一款榮休感謝卡？',
-      lede: '這裡有三款 A3 版面，插圖和文字內容相同。',
-      tabsLabel: '卡片版面', tabFolded: '摺疊', tabPortrait: '直式', tabLandscape: '橫式',
-      labelSize: '完成尺寸', labelSpace: '80 人的簽名空間', labelGood: '最適合', labelMind: '請留意',
-      open: '打開卡片', close: '合上卡片', back: '查看背面', front: '查看正面',
-      feedback: '請告訴傳送此連結給您的人，您喜歡哪一款版面，以及有甚麼想修改的地方。',
-      switchText: 'English', switchLabel: 'Switch to English', switchLang: 'en',
-      altInsideRight: '摺疊卡內頁右側，為空白簽名區。',
-      altBack: '摺疊卡背面，有一小段橄欖枝和獻辭。',
-      altCover: '卡片封面，橄欖花環圍繞著「感謝您」三字，下方是牧師的稱呼。',
-      altInsideLeft: '摺疊卡內頁左側，有感謝語、聖經金句和簽名區。',
-      altPortrait: '直式 A3 卡片，上方是感謝語，下方是大片簽名區。',
-      altPortraitBack: '直式卡片背面，有橄欖花環、十字架、民數記 6:24–26 的祝福和獻辭。',
-      altLandscape: '橫式 A3 卡片，中央是感謝語，四周是簽名空間。',
-      altLandscapeBack: '橫式卡片背面，左邊是橄欖花環和十字架，右邊是民數記 6:24–26 的祝福和獻辭。',
-      options: {
-        folded: { title: '摺疊卡', summary: '將 A3 紙對摺，打開方式就像傳統賀卡，簽名都保存在卡內。', size: '合上時 A4，打開時 A3', space: '每人 8.4 平方厘米', good: '讓牧師隨時打開重溫的紀念品', mind: '卡片合上時看不到簽名' },
-        portrait: { title: '直式平面', summary: '一張直放的 A3 紙，感謝語在上方，簽名在下方，背面印有祝福經文。', size: 'A3 直式，雙面印刷', space: '每人 8.1 平方厘米', good: '裝裱後掛在牆上', mind: '三款之中簽名空間最少' },
-        landscape: { title: '橫式平面', summary: '一張橫放的 A3 紙，感謝語在中央，簽名環繞四周，背面印有祝福經文。', size: 'A3 橫式，雙面印刷', space: '每人 8.7 平方厘米', good: '多人同時圍著桌子簽名', mind: '簽名方向可能各不相同' }
-      }
-    }
-  };
+  const LABELS = { open: '打開卡片', close: '合上卡片', back: '查看背面', front: '查看正面' };
+  const NEXT_CARD_STATE = { front: 'open', open: 'back', back: 'front' };
   const ids = Object.keys(OPTIONS);
   const $ = id => document.getElementById(id);
-  const stage = $('stage'), card = $('card'), openBtn = $('btn-open'), flipBtn = $('btn-flip'), langBtn = $('btn-lang');
+  const stage = $('stage'), card = $('card'), openBtn = $('btn-open'), flipBtn = $('btn-flip');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let current = 'folded', isOpen = false, isBack = false, autoOpen = null, lastWidth = 0, lang = 'en';
-  try { if (localStorage.getItem('card-lang') === 'zh') lang = 'zh'; } catch (e) {}
+  let current = 'folded', isOpen = false, isBack = false, autoOpen = null, lastWidth = 0;
 
   function renderFacts() {
-    const o = TEXT[lang].options[current];
+    const o = OPTIONS[current];
     $('fact-title').textContent = o.title;
     $('fact-summary').textContent = o.summary;
     $('fact-size').textContent = o.size;
     $('fact-space').textContent = o.space;
     $('fact-good').textContent = o.good;
     $('fact-mind').textContent = o.mind;
-  }
-
-  function applyLanguage() {
-    const t = TEXT[lang];
-    document.documentElement.lang = t.htmlLang;
-    document.title = t.pageTitle;
-    document.querySelectorAll('[data-t]').forEach(el => { el.textContent = t[el.dataset.t]; });
-    document.querySelectorAll('img[data-alt]').forEach(img => { img.alt = t[img.dataset.alt]; });
-    $('tabs').setAttribute('aria-label', t.tabsLabel);
-    langBtn.textContent = t.switchText;
-    langBtn.lang = t.switchLang;
-    langBtn.setAttribute('aria-label', t.switchLabel);
-    renderFacts();
-    syncCard();
   }
 
   function layout() {
@@ -300,12 +228,14 @@
     card.classList.toggle('is-open', isOpen);
     card.classList.toggle('is-back', current === 'folded' && isBack);
     ['portrait', 'landscape'].forEach(name => $('flip-' + name).classList.toggle('is-back', current === name && isBack));
-    openBtn.textContent = isOpen ? TEXT[lang].close : TEXT[lang].open;
-    flipBtn.textContent = isBack ? TEXT[lang].front : TEXT[lang].back;
+    openBtn.textContent = isOpen ? LABELS.close : LABELS.open;
+    flipBtn.textContent = isBack ? LABELS.front : LABELS.back;
   }
 
+  function cardState() { return isOpen ? 'open' : isBack ? 'back' : 'front'; }
+
   function moveTo(next) {
-    const from = isOpen ? 'open' : isBack ? 'back' : 'front';
+    const from = cardState();
     card.classList.toggle('close-first', from === 'open' && next === 'back');
     card.classList.toggle('flip-first', from === 'back' && next === 'open');
     isOpen = next === 'open';
@@ -357,17 +287,11 @@
   });
   card.addEventListener('click', () => {
     cancelAutoOpen();
-    moveTo(isOpen || isBack ? 'front' : 'open');
+    moveTo(NEXT_CARD_STATE[cardState()]);
   });
   openBtn.addEventListener('click', () => { cancelAutoOpen(); moveTo(isOpen ? 'front' : 'open'); });
   flipBtn.addEventListener('click', () => { cancelAutoOpen(); moveTo(isBack ? 'front' : 'back'); });
   ['portrait', 'landscape'].forEach(name => $('flip-' + name).addEventListener('click', () => moveTo(isBack ? 'front' : 'back')));
-  langBtn.addEventListener('click', () => {
-    lang = lang === 'en' ? 'zh' : 'en';
-    try { localStorage.setItem('card-lang', lang); } catch (e) {}
-    applyLanguage();
-    layout();
-  });
   window.addEventListener('hashchange', () => {
     const id = location.hash.slice(1);
     if (OPTIONS[id] && id !== current) select(id);
@@ -377,7 +301,6 @@
   }).observe(stage);
   window.addEventListener('resize', layout);
 
-  applyLanguage();
   const start = location.hash.slice(1);
   select(OPTIONS[start] ? start : 'folded');
 </script>
