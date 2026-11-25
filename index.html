@@ -38,7 +38,7 @@
   h1 { margin: 0; font-family: var(--display); font-size: clamp(1.4rem, 3.4vw, 2.6rem); font-weight: 500; line-height: 1.3; text-wrap: balance; }
   .lede { margin: 0; max-width: 44rem; color: var(--muted); }
 
-  .tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
+  .tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
   .tab {
     display: flex; flex-wrap: wrap; align-items: baseline; align-content: center; justify-content: center; gap: .1rem .5rem;
     min-height: 3.25rem; padding: .5rem; background: none; border: 0; border-bottom: 3px solid transparent;
@@ -81,24 +81,11 @@
   .face.fold-left::after { background: linear-gradient(90deg, rgba(60, 50, 25, .22), transparent 7%); }
   .face.fold-right::after { background: linear-gradient(270deg, rgba(60, 50, 25, .22), transparent 7%); }
 
-  .sheet-wrap { width: var(--sheet-w, 300px); max-width: 100%; filter: drop-shadow(0 14px 22px var(--shadow)); perspective: 2200px; }
-  .flip { position: relative; transform: rotateY(0deg); transform-style: preserve-3d; transition: transform 1.15s var(--ease); cursor: pointer; }
-  .flip.is-back { transform: rotateY(180deg); }
-  .flip .sheet { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
-  .flip .sheet-reverse { position: absolute; inset: 0; transform: rotateY(180deg); }
+  .sheet-wrap { width: var(--sheet-w, 300px); max-width: 100%; filter: drop-shadow(0 14px 22px var(--shadow)); }
   .sheet { position: relative; overflow: hidden; background: var(--paper); }
   .sheet img { position: absolute; max-width: none; }
-  .sheet-portrait { aspect-ratio: 842 / 1191; }
-  .sheet-portrait img { top: -.7137%; left: -1.0095%; width: 102.02%; height: 101.427%; }
-  .sheet-landscape { aspect-ratio: 1191 / 842; }
-  .sheet-landscape img { top: -1.0095%; left: -.7137%; width: 101.427%; height: 102.02%; }
   .sheet-reference { aspect-ratio: 1123 / 1587; }
   .sheet-reference img { inset: 0; width: 100%; height: 100%; }
-  .sheet-wrap.play { animation: lift 1.25s cubic-bezier(.2, .8, .2, 1); }
-  .sheet-landscape.play { animation: open-around 1.5s var(--ease) .35s backwards; }
-  @keyframes lift { from { opacity: .45; transform: translateY(7%) rotateX(16deg) scale(.94); } to { opacity: 1; transform: none; } }
-  @keyframes open-around { from { clip-path: inset(21.5% 26.5%); } to { clip-path: inset(0); } }
-  @keyframes soft-fade { from { opacity: .4; } to { opacity: 1; } }
 
   .facts { display: grid; gap: 1rem; min-width: 0; }
   h2 { margin: 0; font-family: var(--display); font-size: 1.7rem; font-weight: 600; line-height: 1.3; }
@@ -117,8 +104,7 @@
   .feedback { margin: 0; padding: 1rem 1.2rem; background: var(--table-raised); }
 
   @media (prefers-reduced-motion: reduce) {
-    .card3d, .leaf-cover, .flip { transition: none; }
-    .sheet-wrap.play, .sheet-landscape.play { animation: soft-fade .3s ease; }
+    .card3d, .leaf-cover { transition: none; }
   }
 </style>
 
@@ -127,14 +113,12 @@
 <main class="page">
   <header class="intro">
     <p class="eyebrow">致牧師的榮休感謝卡</p>
-    <h1>我們該印製哪一款榮休感謝卡？</h1>
-    <p class="lede">這裡有三款 A3 版面，插圖和文字內容相同。</p>
+    <h1>梁家佐牧師榮休感謝卡</h1>
+    <p class="lede">這是摺疊式 A3 感謝卡的設計，另附一款留言頁作參考。</p>
   </header>
 
   <div class="tabs" id="tabs" role="tablist" aria-label="卡片版面">
     <button class="tab" id="tab-folded" role="tab" aria-controls="viewer" aria-selected="true" type="button"><b>A</b> <span>摺疊</span></button>
-    <button class="tab" id="tab-portrait" role="tab" aria-controls="viewer" aria-selected="false" tabindex="-1" type="button"><b>B</b> <span>直式</span></button>
-    <button class="tab" id="tab-landscape" role="tab" aria-controls="viewer" aria-selected="false" tabindex="-1" type="button"><b>C</b> <span>橫式</span></button>
     <button class="tab" id="tab-reference" role="tab" aria-controls="viewer" aria-selected="false" tabindex="-1" type="button"><b class="tab-reference">參考</b> <span>留言頁</span></button>
   </div>
 
@@ -149,22 +133,6 @@
           <div class="leaf leaf-cover">
             <div class="face"><img class="right-half" src="images/zh/a-outside.jpg" alt="卡片封面，橄欖花環圍繞著「感謝您」三字，下方是牧師的稱呼。"></div>
             <div class="face face-reverse fold-right"><img class="left-half" src="images/zh/a-inside.jpg" alt="摺疊卡內頁左側，有感謝語、聖經金句和簽名區。"></div>
-          </div>
-        </div>
-      </div>
-      <div class="option" id="view-portrait" hidden>
-        <div class="sheet-wrap" id="portrait-wrap">
-          <div class="flip" id="flip-portrait">
-            <div class="sheet sheet-portrait"><img src="images/zh/b-portrait.jpg" alt="直式 A3 卡片，上方是感謝語，下方是大片簽名區。"></div>
-            <div class="sheet sheet-portrait sheet-reverse"><img src="images/zh/b-portrait-back.jpg" alt="直式卡片背面，有橄欖花環、十字架、民數記 6:24–26 的祝福和獻辭。"></div>
-          </div>
-        </div>
-      </div>
-      <div class="option" id="view-landscape" hidden>
-        <div class="sheet-wrap">
-          <div class="flip" id="flip-landscape">
-            <div class="sheet sheet-landscape" id="landscape-sheet"><img src="images/zh/c-landscape.jpg" alt="橫式 A3 卡片，中央是感謝語，四周是簽名空間。"></div>
-            <div class="sheet sheet-landscape sheet-reverse"><img src="images/zh/c-landscape-back.jpg" alt="橫式卡片背面，左邊是橄欖花環和十字架，右邊是民數記 6:24–26 的祝福和獻辭。"></div>
           </div>
         </div>
       </div>
@@ -191,15 +159,13 @@
     </aside>
   </section>
 
-  <p class="feedback">請告訴傳送此連結給您的人，您喜歡哪一款版面，以及有甚麼想修改的地方。</p>
+  <p class="feedback">請告訴傳送此連結給您的人，您對這張卡片有甚麼想修改的地方。</p>
 </main>
 
 <script>
   const OPTIONS = {
     folded: { ratio: 842 / 595.5, title: '摺疊卡', summary: '將 A3 紙對摺，打開方式就像傳統賀卡，簽名都保存在卡內。', size: '合上時 A4，打開時 A3', space: '每人 8.4 平方厘米', good: '讓牧師隨時打開重溫的紀念品', mind: '卡片合上時看不到簽名' },
-    portrait: { ratio: 1191 / 842, title: '直式平面', summary: '一張直放的 A3 紙，感謝語在上方，簽名在下方，背面印有祝福經文。', size: 'A3 直式，雙面印刷', space: '每人 8.1 平方厘米', good: '裝裱後掛在牆上', mind: '三款之中簽名空間最少' },
-    landscape: { ratio: 842 / 1191, title: '橫式平面', summary: '一張橫放的 A3 紙，感謝語在中央，簽名環繞四周，背面印有祝福經文。', size: 'A3 橫式，雙面印刷', space: '每人 8.7 平方厘米', good: '多人同時圍著桌子簽名', mind: '簽名方向可能各不相同' },
-    reference: { ratio: 1587 / 1123, title: '祝福留言頁（僅供參考）', summary: '這是另一款留言頁設計，只作參考，不在 A、B、C 三款的選擇之內。', size: 'A3 直式', spaceLabel: '留言空間', space: '12 個留言格', good: '寫下祝福或畫畫送給牧師', mind: '僅供參考，不列入印製選擇' }
+    reference: { ratio: 1587 / 1123, title: '祝福留言頁（僅供參考）', summary: '這是另一款留言頁設計，只作參考。', size: 'A3 直式', spaceLabel: '留言空間', space: '12 個留言格', good: '寫下祝福或畫畫送給牧師', mind: '僅供參考，不列入印製選擇' }
   };
   const LABELS = { open: '打開卡片', close: '合上卡片', back: '查看背面', front: '查看正面' };
   const NEXT_CARD_STATE = { front: 'open', open: 'back', back: 'front' };
@@ -238,7 +204,6 @@
   function syncCard() {
     card.classList.toggle('is-open', isOpen);
     card.classList.toggle('is-back', current === 'folded' && isBack);
-    ['portrait', 'landscape'].forEach(name => $('flip-' + name).classList.toggle('is-back', current === name && isBack));
     openBtn.textContent = isOpen ? LABELS.close : LABELS.open;
     flipBtn.textContent = isBack ? LABELS.front : LABELS.back;
   }
@@ -259,15 +224,7 @@
   function play() {
     cancelAutoOpen();
     moveTo('front');
-    if (current === 'folded') {
-      if (!reduced) autoOpen = setTimeout(() => moveTo('open'), 1000);
-      return;
-    }
-    if (current === 'reference') return;
-    const el = current === 'portrait' ? $('portrait-wrap') : $('landscape-sheet');
-    el.classList.remove('play');
-    void el.offsetWidth;
-    el.classList.add('play');
+    if (current === 'folded' && !reduced) autoOpen = setTimeout(() => moveTo('open'), 1000);
   }
 
   function select(id, focusTab) {
@@ -281,7 +238,6 @@
     $('viewer').setAttribute('aria-labelledby', 'tab-' + id);
     if (focusTab) $('tab-' + id).focus();
     renderFacts();
-    openBtn.hidden = id !== 'folded';
     $('controls').hidden = id === 'reference';
     layout();
     play();
@@ -304,7 +260,6 @@
   });
   openBtn.addEventListener('click', () => { cancelAutoOpen(); moveTo(isOpen ? 'front' : 'open'); });
   flipBtn.addEventListener('click', () => { cancelAutoOpen(); moveTo(isBack ? 'front' : 'back'); });
-  ['portrait', 'landscape'].forEach(name => $('flip-' + name).addEventListener('click', () => moveTo(isBack ? 'front' : 'back')));
   window.addEventListener('hashchange', () => {
     const id = location.hash.slice(1);
     if (OPTIONS[id] && id !== current) select(id);
